@@ -5,8 +5,8 @@ import time
 
 import pandas as pd
 
-folder_path = Path("A004_SD012")
-audio_files = list(folder_path.glob("*.WAV"))
+folder_path = Path("AM0060")
+audio_files = list(folder_path.rglob("*.WAV"))
 audio_files
 
 
@@ -15,7 +15,7 @@ species_list_path = Path("species_list.txt")
 
 
 with species_list_path.open() as f:
-   species_list = {line.strip() for line in f if line.strip()}  # ✅ curly braces = set
+   species_list = {line.strip() for line in f if line.strip()}  # curly braces = set
 
 
 
@@ -53,7 +53,7 @@ for audio_path in audio_files:
 
 all_dfs
 combined_df = pd.concat(all_dfs, ignore_index=True)
-combined_df.to_csv("output_A004_SD012_full_sp.csv", index=False)
+combined_df.to_csv("output_AM0060.csv", index=False)
 
 
 
