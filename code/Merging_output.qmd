@@ -1,0 +1,65 @@
+---
+title: "Compiling a Main Data Frame"
+format: html
+---
+
+## Goal:
+
+In the following code, the output files from all the audio moth folders are compiled into a single 'main' data frame.
+
+
+## Set up
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(hms)
+library(here)
+```
+
+
+## Compiling and Formatting Data Frame
+
+Here we will take the folder containing all the output files and load them into list:
+
+```{r}
+file_list <- list.files(path = here("output"), pattern = "[0-9].csv$",)
+
+# read in all the files as dfs
+df_list <- map(file_list, \(x) read_csv(here("output", x)))
+
+# process each df to then bind_rows
+cleaned_list <- map(df_list, \(x) x |> relocate(file) |>
+  pivot_longer(4:ncol(x), names_to = "species", values_to = "probability") |>
+  filter(!is.na(probability)))
+
+# add a column with the AM name
+for (i in 1:length(cleaned_list)){
+  cleaned_list[[i]] <- cleaned_list[[i]] |> 
+    mutate(id = str_sub(file_list[[i]], start = 8, end = -5)) # AM names of variable length
+}
+
+# compile into single df
+temp_df <- bind_rows(cleaned_list)
+```
+
+
+### Create date and time variables
+
+```{r}
+main_df <- temp_df |> mutate(date = str_sub(file, start = 1, end = 8),
+          hour = str_sub(file, 10, 11),
+          minute = str_sub(file, 12, 13),
+          second = str_sub(file, 14, 15)) |>
+  unite("date_time", c("date", "hour", "minute", "second"), sep = ":") |>
+  mutate(date_time = ymd_hms(date_time),
+          time = as_hms(date_time))
+```
+
+
+## write csv
+
+```{r}
+write_csv(main_df, here("data/birdnet_results.csv"))
+```
+

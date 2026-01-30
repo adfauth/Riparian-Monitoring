@@ -1,0 +1,10 @@
+Bird list meta data:
+
+Aidan Fauth 10/1/2025
+
+These are the edits and decision I made to the raw histogram data obtained from Ebird to create a bird species list to be made for our audio analysis. This list was later sent to experts for verification and to identify the likelihood of IDing these species based on the season.
+
+The Data was originally organized with the Months as headers and the sample size for the week (1-4) of that month as the first row. The next row was the week in the month (1-4).
+Then all subsequent rows were the species in the first column and their frequencies (as a decimal) for each week in the month for the whole year.
+
+To create the species list my basic edits were deleting rows that did not contain a single species or were too generic. Some rows had two species because the birder was unsure like "cackling goose/canadian goose" or something generic like "goose sp." These rows were deleted. Then, I took the average frequency of all the rows and if the average frequency was below .005, the species was deleted.

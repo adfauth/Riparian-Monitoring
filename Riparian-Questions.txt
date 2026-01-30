@@ -1,0 +1,17 @@
+Basic question: Which species are using which river(s)?
+
+Extension if there's a difference: which predictor(s) indicate why one river is more favorable?
+
+
+Human disturbance:
+
+Does percent developed land (of a given area around the point) affect biodiversity/species richness?
+
+Does proximity to roads affect biodiversity/species richness
+
+Does anthrophony affect biodiversity/species richness? -> can potentially use both for audio data and link it to camera data (integrative model?)
+
+Is there any way we can approximate movement/activity?
+
+Any trends over time (how well is the corridor doing compared to the past)?
+ - Using historical Grasse data.
